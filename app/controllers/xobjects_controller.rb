@@ -17,7 +17,6 @@ class XobjectsController < ApplicationController
 
     json_string = params[:xobject].to_json # not parsed correctly
     json_object = {:arb_object => json_string}
-    binding.pry
     @xobject = Xobject.new(json_object)
 
     if @xobject.save
