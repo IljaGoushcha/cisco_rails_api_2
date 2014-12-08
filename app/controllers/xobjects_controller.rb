@@ -7,11 +7,11 @@ class XobjectsController < ApplicationController
 
   def show
     xobj = Xobject.find_by_uid(params[:id])
-    @xobject = Xobject.inflate_xobject(xobj)
-    if @xobject
+    if xobj
+      @xobject = Xobject.inflate_xobject(xobj)
       render json: @xobject, except: [:id, :created_at, :updated_at], status: :created, location: @xobject
     else
-      render json: {verb: "GET", url: "https://cisco-rails-api.herokuapp.com/objects/#{params[:id]}", message: "uid does not exist"}
+      render json: {verb: "GET", url: "https://cisco-rails-api.herokuapp.com/objects/#{params[:id]}", message: "bad URL or uid does not exist"}
     end
   end
 
