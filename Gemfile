@@ -17,7 +17,6 @@ gem 'rails_12factor', group: :production
 gem 'pry-rails'
 gem 'pry-byebug'
 
-gem 'rspec-rails', '~> 3.0.0'
 
 
 # To use ActiveModel has_secure_password

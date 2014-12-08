@@ -1,5 +1,7 @@
 class Xobject < ActiveRecord::Base
   before_create :generate_uid
+  validates :arb_object, presence: true
+  validates :uid, uniqueness: true
 
   def self.generate_object_urls
     xobjects = Xobject.all
