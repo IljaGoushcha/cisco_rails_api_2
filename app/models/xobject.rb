@@ -11,6 +11,15 @@ class Xobject < ActiveRecord::Base
     return xobjects_formated
   end
 
+  def self.deflate_xobject(xobject)
+    temp_string = ""
+    xobject.each do |key, value|
+      temp_string = "#{temp_string}#{key}:#{value},"
+    end
+    deflated_string = temp_string.chop
+    return deflated_string
+  end
+
   private
   # I am not sure if I am generating UID or UUID,
   # or is there even a difference between the two?

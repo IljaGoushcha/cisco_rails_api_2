@@ -14,11 +14,8 @@ class XobjectsController < ApplicationController
   end
 
   def create
-
-    json_string = params[:xobject].to_json # not parsed correctly
-    json_object = {:arb_object => json_string}
-    @xobject = Xobject.new(json_object)
-
+    xobject_string = Xobject.deflate_xobject(params[:xobject])
+    @xobject = Xobject.new({:arb_object => xobject_string})
     if @xobject.save
       render json: @xobject, except: :id, status: :created, location: @xobject
     else
@@ -50,7 +47,6 @@ class XobjectsController < ApplicationController
   private
 
   def allowed_params
-    # I wonder what happens with timestamp fields?
     params.require(:xobject).permit(:uid)
   end
 
