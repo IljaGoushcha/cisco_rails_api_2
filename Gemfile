@@ -7,6 +7,8 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
+gem 'rspec-rails', '~> 3.0.0', :group => :development, :group => :test
+
 gem 'pg'
 
 gem 'arel', '6.0.0.beta2'
@@ -14,6 +16,8 @@ gem 'rails_12factor', group: :production
 
 gem 'pry-rails'
 gem 'pry-byebug'
+
+gem 'rspec-rails', '~> 3.0.0'
 
 
 # To use ActiveModel has_secure_password
