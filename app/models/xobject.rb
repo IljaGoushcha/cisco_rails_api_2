@@ -5,7 +5,7 @@ class Xobject < ActiveRecord::Base
     xobjects = Xobject.all
 
     xobjects_formated = xobjects.map do |xobject|
-      {url: "http://localhost:3000/objects/#{xobject[:uid]}"}
+      {url: "http://cisco-rails-api-2.herokuapp.com/objects/#{xobject[:uid]}"}
     end
 
     return xobjects_formated
