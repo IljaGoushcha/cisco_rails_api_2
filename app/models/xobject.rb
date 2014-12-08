@@ -27,6 +27,8 @@ class Xobject < ActiveRecord::Base
     temp_array.map do |elem|
       temp_hash[elem.split(":")[0].to_sym] = elem.split(":")[1]
     end
+    temp_hash[:created_at] = xobj[:created_at]
+    temp_hash[:updated_at] = xobj[:updated_at]
     return temp_hash
   end
 

@@ -1,3 +1,4 @@
+# I am losing time stamps
 class XobjectsController < ApplicationController
 
   def index
@@ -8,7 +9,7 @@ class XobjectsController < ApplicationController
     xobj = Xobject.find_by_uid(params[:id])
     @xobject = Xobject.inflate_xobject(xobj)
     if @xobject
-      render json: @xobject, except: :id, status: :created, location: @xobject
+      render json: @xobject, except: [:id, :created_at, :updated_at], status: :created, location: @xobject
     else
       render json: {verb: "GET", url: "https://cisco-rails-api.herokuapp.com/objects/#{params[:id]}", message: "uid does not exist"}
     end
@@ -20,7 +21,7 @@ class XobjectsController < ApplicationController
 
     if @xobject.save
       inflated_xobject = Xobject.inflate_xobject(@xobject)
-      render json: inflated_xobject, except: :id, status: :created, location: @xobject
+      render json: inflated_xobject, except: [:id, :created_at, :updated_at], status: :created, location: @xobject
     else
       render json: {verb: "POST", url: "https://cisco-rails-api.herokuapp.com/objects/", message: "Not a JSON object"}
     end
