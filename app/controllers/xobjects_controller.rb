@@ -29,7 +29,7 @@ class XobjectsController < ApplicationController
   end
 
   def update
-    xobject_string = Xobject.deflate_xobject(params[:xobject])
+    xobject_string = Xobject.deflate_xobject(params)
     @xobject = Xobject.find_by_uid(params[:id])
 
     if @xobject.update({:arb_object => xobject_string})
