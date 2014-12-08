@@ -16,7 +16,8 @@ class XobjectsController < ApplicationController
   end
 
   def create
-    xobject_string = Xobject.deflate_xobject(params[:xobject])
+    xobject_string = Xobject.deflate_xobject(params)
+    binding.pry
     @xobject = Xobject.new({:arb_object => xobject_string})
 
     if @xobject.save
@@ -35,7 +36,7 @@ class XobjectsController < ApplicationController
       inflated_xobject = Xobject.inflate_xobject(@xobject)
       render json: inflated_xobject, except: [:id, :created_at, :updated_at], status: :created, location: @xobject
     else
-      render json: @xobject.errors, status: :unprocessable_entity
+      render json: {verb: "GET", url: "https://cisco-rails-api.herokuapp.com/objects/#{params[:id]}", message: "uid does not exist"}
     end
   end
 
@@ -45,7 +46,7 @@ class XobjectsController < ApplicationController
     if @xobject.destroy
       # render json: @xobject, except: :id, status: :created, location: @xobject
     else
-      render json: @xobject.errors, status: :unprocessable_entity
+      render json: {verb: "GET", url: "https://cisco-rails-api.herokuapp.com/objects/#{params[:id]}", message: "uid does not exist"}
     end
   end
 

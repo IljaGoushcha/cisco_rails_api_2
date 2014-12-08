@@ -11,9 +11,11 @@ class Xobject < ActiveRecord::Base
     return xobjects_formated
   end
 
-  def self.deflate_xobject(xobject)
+  def self.deflate_xobject(xobj)
+    xobj.delete("controller")
+    xobj.delete("action")
     temp_string = ""
-    xobject.each do |key, value|
+    xobj.each do |key, value|
       temp_string = "#{temp_string}#{key}:#{value},"
     end
     deflated_string = temp_string.chop
