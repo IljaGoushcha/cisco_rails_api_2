@@ -5,7 +5,7 @@ class XobjectsController < ApplicationController
   end
 
   def show
-    @xobject = Xobject.find_by_uid(params[:id])
+    @xobject = Xobject.inflate_xobject(params)
     if @xobject
       render json: @xobject, except: :id, status: :created, location: @xobject
     else

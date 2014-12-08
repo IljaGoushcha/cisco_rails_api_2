@@ -20,6 +20,16 @@ class Xobject < ActiveRecord::Base
     return deflated_string
   end
 
+  def self.inflate_xobject(params)
+    temp_hash = {uid: Xobject.find_by_uid(params[:id])[:uid]}
+    temp_string = Xobject.find_by_uid(params[:id])[:arb_object]
+    temp_array = temp_string.split(",")
+    temp_array.map do |elem|
+      temp_hash[elem.split(":")[0].to_sym] = elem.split(":")[1]
+    end
+    return temp_hash
+  end
+
   private
   # I am not sure if I am generating UID or UUID,
   # or is there even a difference between the two?
