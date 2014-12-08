@@ -43,7 +43,7 @@ class XobjectsController < ApplicationController
     @xobject = Xobject.find_by_uid(params[:id])
 
     if @xobject.destroy
-      render json: @xobject, except: :id, status: :created, location: @xobject
+      # render json: @xobject, except: :id, status: :created, location: @xobject
     else
       render json: @xobject.errors, status: :unprocessable_entity
     end
