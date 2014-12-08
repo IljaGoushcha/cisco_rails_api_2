@@ -1,11 +1,12 @@
 class XobjectsController < ApplicationController
 
   def index
-    render json: Xobject.all
+    render json: Xobject.generate_object_urls
   end
 
   def show
-    @xobject = Xobject.inflate_xobject(params)
+    xobj = Xobject.find_by_uid(params[:id])
+    @xobject = Xobject.inflate_xobject(xobj)
     if @xobject
       render json: @xobject, except: :id, status: :created, location: @xobject
     else
@@ -16,8 +17,10 @@ class XobjectsController < ApplicationController
   def create
     xobject_string = Xobject.deflate_xobject(params[:xobject])
     @xobject = Xobject.new({:arb_object => xobject_string})
+
     if @xobject.save
-      render json: @xobject, except: :id, status: :created, location: @xobject
+      inflated_xobject = Xobject.inflate_xobject(@xobject)
+      render json: inflated_xobject, except: :id, status: :created, location: @xobject
     else
       render json: {verb: "POST", url: "https://cisco-rails-api.herokuapp.com/objects/", message: "Not a JSON object"}
     end

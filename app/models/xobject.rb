@@ -5,7 +5,7 @@ class Xobject < ActiveRecord::Base
     xobjects = Xobject.all
 
     xobjects_formated = xobjects.map do |xobject|
-      {url: "https://cisco-rails-api_2.herokuapp.com/objects/#{xobject[:uid]}"}
+      {url: "http://localhost:3000/objects/#{xobject[:uid]}"}
     end
 
     return xobjects_formated
@@ -20,9 +20,9 @@ class Xobject < ActiveRecord::Base
     return deflated_string
   end
 
-  def self.inflate_xobject(params)
-    temp_hash = {uid: Xobject.find_by_uid(params[:id])[:uid]}
-    temp_string = Xobject.find_by_uid(params[:id])[:arb_object]
+  def self.inflate_xobject(xobj)
+    temp_hash = {uid: xobj[:uid]}
+    temp_string = xobj[:arb_object]
     temp_array = temp_string.split(",")
     temp_array.map do |elem|
       temp_hash[elem.split(":")[0].to_sym] = elem.split(":")[1]
