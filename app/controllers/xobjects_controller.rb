@@ -28,10 +28,12 @@ class XobjectsController < ApplicationController
   end
 
   def update
+    xobject_string = Xobject.deflate_xobject(params[:xobject])
     @xobject = Xobject.find_by_uid(params[:id])
 
-    if @xobject.update(allowed_params)
-      render json: @xobject, except: :id, status: :created, location: @xobject
+    if @xobject.update({:arb_object => xobject_string})
+      inflated_xobject = Xobject.inflate_xobject(@xobject)
+      render json: inflated_xobject, except: [:id, :created_at, :updated_at], status: :created, location: @xobject
     else
       render json: @xobject.errors, status: :unprocessable_entity
     end
